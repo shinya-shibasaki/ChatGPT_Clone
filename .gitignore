@@ -3,6 +3,10 @@
 # vscode
 .vscode/
 
+# pnpm
+.pnpm/
+.pnpm-store/
+
 # dependencies
 /node_modules
 /.pnp
