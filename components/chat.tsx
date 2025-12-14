@@ -1,33 +1,24 @@
+'use client';
+
 import { Messages } from "./messages";
 import { ChatInput } from "./chat-input";
+import { useChat } from "@ai-sdk/react";
+import { useState } from "react";
 
 export function Chat() {
-    const messages = [
-        {
-            id: "1",
-            role: "user",
-            parts: [
-                {
-                    type: "text",
-                    text: "こんにちは！ ",
-                },
-            ],
-        },
-        {
-            id: "2",
-            role: "assistant",
-            parts: [
-                {
-                    type: "text",
-                    text: "こんにちは！ 何かお手伝いできることはありますか？ ",
-                },
-            ],
-        },
-    ];
+
+    const [input, setInput] = useState("");
+    const { messages, sendMessage, status } = useChat();
+
     return (
         <div className="flex flex-col min-w-0 h-dvh bg-background">
             <Messages messages={messages} />
-            <ChatInput />
+            <ChatInput
+            input={input}
+            setInput={setInput}
+            sendMessage={sendMessage}
+            status={status}
+            />
         </div>
     );
 }
