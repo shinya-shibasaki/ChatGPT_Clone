@@ -5,15 +5,16 @@ import { ChatInput } from "./chat-input";
 import { useChat } from "@ai-sdk/react";
 import { useState } from "react";
 import { ChatHeader } from "./header";
+import { Session } from "next-auth";
 
-export function Chat() {
+export function Chat({ id, session }: { id: string; session: Session }) {
 
     const [input, setInput] = useState("");
-    const { messages, sendMessage, status } = useChat();
+    const { messages, sendMessage, status } = useChat({ id });
 
     return (
         <div className="flex flex-col min-w-0 h-dvh bg-background">
-            <ChatHeader />
+            <ChatHeader session={session} />
             <Messages messages={messages} />
             <ChatInput
             input={input}

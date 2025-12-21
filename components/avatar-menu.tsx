@@ -2,8 +2,10 @@ import { signOut } from "next-auth/react";
 import { AvatarIcon } from "./icon";
 import { useState } from "react";
 import { useDropdown } from "@/hooks/use-dropdown";
+import Avatar from "boring-avatars";
+import { Session } from "next-auth";
 
-export function AvatarMenu() {
+export function AvatarMenu({ session }: { session: Session }) {
     const [open, setOpen] = useState(false);
     const menuRef = useDropdown<HTMLDivElement>(() => setOpen(false));
     return (
@@ -17,7 +19,10 @@ export function AvatarMenu() {
                         setOpen((prev) => !prev);
                     }}
                 >
-                    <AvatarIcon />
+                    <Avatar
+                    name={session.user!.email!}
+                    size={40}
+                    variant="beam"/>
                 </button>
             </div>
             {open && (
