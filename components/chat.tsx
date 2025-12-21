@@ -4,6 +4,7 @@ import { Messages } from "./messages";
 import { ChatInput } from "./chat-input";
 import { useChat } from "@ai-sdk/react";
 import { useState } from "react";
+import { ChatHeader } from "./header";
 
 export function Chat() {
 
@@ -12,6 +13,7 @@ export function Chat() {
 
     return (
         <div className="flex flex-col min-w-0 h-dvh bg-background">
+            <ChatHeader />
             <Messages messages={messages} />
             <ChatInput
             input={input}

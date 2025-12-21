@@ -5,10 +5,12 @@ import Form from 'next/form';
 export function AuthForm({
     action,
     children,
+    email,
 }: {
     action: NonNullable<
         string | ((formData: FormData) => void | Promise<void>) | undefined>;
     children: React.ReactNode;
+    email?: string;
 }) {
     return (
         <Form action={action} className="flex flex-col gap-4 px-4 sm:px-16">
@@ -19,6 +21,7 @@ export function AuthForm({
                     autoComplete='email'
                     type="email"
                     name='email'
+                    defaultValue={email}
                 />
             </div>
             <div className="flex flex-col gap-2">
