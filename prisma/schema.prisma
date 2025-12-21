@@ -67,6 +67,8 @@ model Chat {
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   messages  Message[]
+
+  @@map("chat")
 }
 
 model Message {
@@ -76,4 +78,6 @@ model Message {
   role      String
   parts     Json
   createdAt DateTime @default(now())
+
+  @@map("message")
 }
