@@ -24,3 +24,57 @@ export async function createUser(email: string, passwordHash: string) {
 
     return user;
 }
+
+export async function saveChat({
+    id,
+    userId,
+}: {
+    id: string;
+    userId: string;
+}) {
+    const chat = await prisma.chat.create({
+        data: {
+            id,
+            userId,
+        },
+    });
+
+    return chat;
+}
+
+export async function saveMessage({
+    message,   
+}: {
+    message: {
+        chatId: string;
+        id: string;
+        role: "user" | "assistant";
+        parts: Array<object>;
+    };
+}) {
+    return await prisma.message.create({data: message});
+}
+
+export async function getChatById({id}: {id: string}) {
+    const chat = await prisma.chat.findUnique({
+        where: {
+            id,
+        },
+    });
+
+    if (!chat) {
+        return null;
+    }
+
+    return chat ;
+}
+
+export async function getMessagesByChatId({ id }: { id: string }) {
+    const messages = await prisma.message.findMany({
+        where: {
+            chatId: id,
+        },
+    });
+
+    return messages;
+}

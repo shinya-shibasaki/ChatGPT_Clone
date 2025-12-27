@@ -12,7 +12,7 @@ export default async function Page() {
     const id = randomUUID();
     return (
         <>
-            <Chat id={id} session={session}/>
+            <Chat id={id} session={session} initialMessages={[]}/>
         </>
     )
 

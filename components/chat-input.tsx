@@ -1,28 +1,37 @@
 'use client';
 import { UseChatHelpers } from "@ai-sdk/react";
 import { ArrowUpIcon } from "./icon";
+import { useCallback } from "react";
 
 export function ChatInput({
+    chatId,
     input,
     setInput,
     sendMessage,
     status,
 }: {
+    chatId: string;
     input: string;
     setInput: React.Dispatch<React.SetStateAction<string>>;
     sendMessage: UseChatHelpers<any>['sendMessage'];
     status: UseChatHelpers<any>['status'];
 }) {
+    const submitForm = useCallback(() => {
+        window.history.replaceState({}, "", `/chat/${chatId}`);
+        const trimmed = input.trim();
+        if (!trimmed) return;
+        sendMessage({ text: trimmed });
+    }, [sendMessage, chatId, input]);
     return (
         <form className="flex mx-auto px-4 bg-background pb-4 md:pb-6 gap-2 w-full md:max-w-3xl"
             onSubmit={(e) => {
                 e.preventDefault();
                 if (status !== 'ready') return;
 
-                const trimmed = input.trim();
-                if (!trimmed) return;
+                // const trimmed = input.trim();
+                // if (!trimmed) return;
 
-                sendMessage({ text: trimmed });
+                submitForm();
                 setInput("");
             }}
         >
@@ -43,10 +52,10 @@ export function ChatInput({
                             event.preventDefault();
                             if (status !== 'ready') return;
 
-                            const trimmed = input.trim();
-                            if (!trimmed) return;
+                            // const trimmed = input.trim();
+                            // if (!trimmed) return;
 
-                            sendMessage({ text: trimmed });
+                            submitForm();
                             setInput("");
                         }
                     }}
